@@ -27,3 +27,8 @@ Windows authentication mechanisms and does not indicate malicious activity.
 - Complete baseline observation
 - Automate event extraction with PowerShell
 - Simulate controlled failed logon attempts
+
+## Part 2 – PowerShell extraction
+- Used Get-WinEvent with FilterHashtable to extract Event ID 4625 from the Security log.
+- Converted events to XML and extracted key fields (TargetUserName, LogonType, IpAddress, ProcessName).
+- Confirmed interactive failed logons (LogonType 2) with localhost source (127.0.0.1) during testing.
