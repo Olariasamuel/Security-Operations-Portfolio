@@ -32,3 +32,22 @@ Windows authentication mechanisms and does not indicate malicious activity.
 - Used Get-WinEvent with FilterHashtable to extract Event ID 4625 from the Security log.
 - Converted events to XML and extracted key fields (TargetUserName, LogonType, IpAddress, ProcessName).
 - Confirmed interactive failed logons (LogonType 2) with localhost source (127.0.0.1) during testing.
+
+## Part 3 – Field Interpretation & Noise Classification
+
+Extracted additional 4625 fields (Status/SubStatus) to determine the reason for authentication failure.
+
+Observed consistent local-interactive failures with:
+
+- LogonType = 2 (Interactive)
+- IpAddress = 127.0.0.1 (localhost)
+- TargetUserName = "-" (not resolved)
+- ProcessName = svchost.exe
+- Status = 0xC000006D (invalid logon/credentials)
+- SubStatus = 0xC0000380 (SMARTCARD_WRONG_PIN)
+
+Conclusion:
+Failures are consistent with Windows Hello PIN errors and represent low-risk baseline activity rather than user-targeted or remote attempts.
+
+
+
